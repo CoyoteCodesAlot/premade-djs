@@ -1,1 +1,0 @@
-run = "npm version minor&&npm publish"
