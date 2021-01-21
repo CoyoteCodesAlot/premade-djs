@@ -18,47 +18,6 @@ module.exports.cmds = newCmds => {
 	this.commands = newCmds;
 };
 
-module.exports.premadeCmds = [
-	{
-		name: 'kick',
-		permission: 'KICK_MEMBERS',
-		usage: `${this.prefix}kick <User>`,
-		description: 'Kick a user',
-		callback: (message, args) => {
-			const user = message.mentions.users.first();
-
-			const msg = message;
-			if (user) {
-				const member = msg.guild.member(user);
-				if (member) {
-					member
-						.kick()
-						.then(() => {
-							msg.react('👍');
-
-							var emb = new Discord.MessageEmbed()
-								.setColor(this.embedColor)
-								.setTitle('Kicked')
-								.setDescription(
-									`You were kicked from ${msg.guild.name} by ${msg.author.tag}`
-								);
-							member.send(emb);
-							msg.reply(`Successfully kicked ${user.tag}`);
-						})
-						.catch(err => {
-							msg.reply('I was unable to kick the member');
-							console.error(err);
-						});
-				} else {
-					msg.reply("That user isn't in this guild!");
-				}
-			} else {
-				msg.reply("You didn't mention the user to kick!");
-			}
-		}
-	}
-];
-
 client.on('message', message => {
 	const { author, content, channel } = message;
 	if (author.bot) {
