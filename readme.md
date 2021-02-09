@@ -1,4 +1,4 @@
-﻿# Easier Discord Bot 
+# Easier Discord Bot 
 
 ## Functions
 
@@ -104,6 +104,28 @@ Bot.mysql(sqlData).createTable('users', '(name VARCHAR(255), password VARCHAR(25
 Bot.mysql(sqlData).insertInto('users', 'name, password', 'testing, password');
 
 Bot.mysql(sqlData).delete('users', 'name', 'testing');
+
+Bot.mysql(sqlData).findOneAndUpdate({
+    table: 'users', // Find The table
+    findCol: 'name', // Make it only update the value where this column equals findColVal
+    findColVal: 'testing', // Refer to above comment
+    column: 'password', // This sets the column value it will change
+    newVal: 'newpassword', // This will set the new value from column referenced in 'column'
+})
+
+/*
+Find Two And Update is the same as Find One And Update except it checks for 2 different columns
+*/
+
+Bot.mysql(sqlData).findTwoAndUpdate({
+    table: 'users', // Find The table
+    findCol: 'name',
+    find2Col: 'email',
+    findColVal: 'testing',
+    find2ColVal: 'test@test.com',
+    column: 'password',
+    newVal: 'newpassword',
+})
 
 ** Bot.mysql(sqlData).query(query, function);
 ```
